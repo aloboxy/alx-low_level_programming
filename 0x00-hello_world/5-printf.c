@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 /**
-* the printf function
+*main- the printf function
 * in c with
-* main and return void
+* Return:0  and return void
 **/
 
 int main(void)
