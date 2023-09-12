@@ -1,23 +1,28 @@
 #include <stdio.h>
 
 /**
- * main - prints all the numbers of base 16 in lowercase,
- * followed by a new line
- * Return: Always 0 (Success)
+ * main - prints numbers from 0 to 9 separated by a coma followed by a space
+ *
+ * Return: Always 0 (success)
+ *
  */
-int main(void)
-{
-	int n;
-	char ch;
 
-	for (n = 48; n < 58; n++)
+int main(void)
+
+{
+	int num = '0';
+
+	while (num <= '9')
 	{
-		putchar(n);
-	}
-	for (ch = 'a'; ch <= 'f'; ch++)
-	{
-	putchar(ch);
+		putchar(num);
+		if (num != '9')
+		{
+			putchar(',');
+			putchar(' ');
+		}
+		num++;
 	}
 	putchar('\n');
 	return (0);
+
 }
