@@ -9,15 +9,21 @@
  * Return: A pointer to an array of strings (words), or NULL on failure.
  */
 char **strtow(char *str) {
+    int word_count = 0;
+    int in_word = 0;
+    char *temp;
+    char **words;
+    int word_index;
+    char *start;
+    int word_length;
+    int i;
+
     if (str == NULL || *str == '\0') {
         return NULL;
     }
 
-    int word_count = 0;
-    int in_word = 0; 
-    char *temp = str;
+    temp = str;
 
-    
     while (*temp) {
         if (*temp != ' ') {
             if (!in_word) {
@@ -31,20 +37,18 @@ char **strtow(char *str) {
     }
 
     if (word_count == 0) {
-        return NULL; 
+        return NULL;
     }
 
-   
-    char **words = malloc((word_count + 1) * sizeof(char *));
+    words = malloc((word_count + 1) * sizeof(char *));
     if (words == NULL) {
         return NULL;
     }
 
-    int word_index = 0;
+    word_index = 0;
     in_word = 0;
-    char *start = str;
+    start = str;
 
-    
     while (*str) {
         if (*str != ' ') {
             if (!in_word) {
@@ -53,12 +57,11 @@ char **strtow(char *str) {
             }
         } else {
             if (in_word) {
-               
-                int word_length = str - start;
+                word_length = str - start;
                 words[word_index] = malloc((word_length + 1) * sizeof(char));
                 if (words[word_index] == NULL) {
                    
-                    for (int i = 0; i < word_index; i++) {
+                    for (i = 0; i < word_index; i++) {
                         free(words[i]);
                     }
                     free(words);
@@ -73,13 +76,12 @@ char **strtow(char *str) {
         str++;
     }
 
-   
     if (in_word) {
-        int word_length = str - start;
+        word_length = str - start;
         words[word_index] = malloc((word_length + 1) * sizeof(char));
         if (words[word_index] == NULL) {
-           
-            for (int i = 0; i < word_index; i++) {
+    
+            for (i = 0; i < word_index; i++) {
                 free(words[i]);
             }
             free(words);
@@ -99,11 +101,12 @@ char **strtow(char *str) {
  * @words: The array of words to print.
  */
 void print_words(char **words) {
+    int i;
     if (words == NULL) {
         printf("NULL\n");
         return;
     }
-    for (int i = 0; words[i] != NULL; i++) {
+    for (i = 0; words[i] != NULL; i++) {
         printf("%s\n", words[i]);
     }
 }
@@ -113,10 +116,11 @@ void print_words(char **words) {
  * @words: The array of words to free.
  */
 void free_words(char **words) {
+    int i;
     if (words == NULL) {
         return;
     }
-    for (int i = 0; words[i] != NULL; i++) {
+    for (i = 0; words[i] != NULL; i++) {
         free(words[i]);
     }
     free(words);
@@ -126,7 +130,7 @@ int main(void) {
     char *str = "  Hello world!  This is a test.  ";
     char **words = strtow(str);
 
-    print_words(words); 
+    print_words(words);
     free_words(words);
 
     return 0;
