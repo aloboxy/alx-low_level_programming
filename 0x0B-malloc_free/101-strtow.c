@@ -10,14 +10,14 @@
  */
 char **strtow(char *str) {
     if (str == NULL || *str == '\0') {
-        return NULL; // Handle edge cases
+        return NULL;
     }
 
     int word_count = 0;
-    int in_word = 0; // Flag to track if we are inside a word
+    int in_word = 0; 
     char *temp = str;
 
-    // Count the number of words
+    
     while (*temp) {
         if (*temp != ' ') {
             if (!in_word) {
@@ -31,33 +31,33 @@ char **strtow(char *str) {
     }
 
     if (word_count == 0) {
-        return NULL; // No words found
+        return NULL; 
     }
 
-    // Allocate memory for the array of words
+   
     char **words = malloc((word_count + 1) * sizeof(char *));
     if (words == NULL) {
-        return NULL; // Memory allocation failed
+        return NULL;
     }
 
     int word_index = 0;
     in_word = 0;
     char *start = str;
 
-    // Extract words and store them in the array
+    
     while (*str) {
         if (*str != ' ') {
             if (!in_word) {
-                start = str; // Start of a new word
+                start = str;
                 in_word = 1;
             }
         } else {
             if (in_word) {
-                // End of a word, allocate memory and copy the word
+               
                 int word_length = str - start;
                 words[word_index] = malloc((word_length + 1) * sizeof(char));
                 if (words[word_index] == NULL) {
-                    // Free previously allocated memory on failure
+                   
                     for (int i = 0; i < word_index; i++) {
                         free(words[i]);
                     }
@@ -65,7 +65,7 @@ char **strtow(char *str) {
                     return NULL;
                 }
                 strncpy(words[word_index], start, word_length);
-                words[word_index][word_length] = '\0'; // Null-terminate the word
+                words[word_index][word_length] = '\0';
                 word_index++;
                 in_word = 0;
             }
@@ -73,12 +73,12 @@ char **strtow(char *str) {
         str++;
     }
 
-    // Handle the last word if the string doesn't end with a space
+   
     if (in_word) {
         int word_length = str - start;
         words[word_index] = malloc((word_length + 1) * sizeof(char));
         if (words[word_index] == NULL) {
-            // Free previously allocated memory on failure
+           
             for (int i = 0; i < word_index; i++) {
                 free(words[i]);
             }
@@ -86,11 +86,11 @@ char **strtow(char *str) {
             return NULL;
         }
         strncpy(words[word_index], start, word_length);
-        words[word_index][word_length] = '\0'; // Null-terminate the word
+        words[word_index][word_length] = '\0';
         word_index++;
     }
 
-    words[word_index] = NULL; // Null-terminate the array of words
+    words[word_index] = NULL;
     return words;
 }
 
@@ -126,8 +126,8 @@ int main(void) {
     char *str = "  Hello world!  This is a test.  ";
     char **words = strtow(str);
 
-    print_words(words); // Print the words
-    free_words(words);  // Free the allocated memory
+    print_words(words); 
+    free_words(words);
 
     return 0;
 }
